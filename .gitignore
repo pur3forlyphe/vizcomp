@@ -1,0 +1,10 @@
+config/database.php
+plugins/*
+tmp/*
+tmp/cache/*
+tmp/cache/models/*
+tmp/cache/persistent/*
+
+# Ignore Mac system files
+.Ds_Store
+/nbproject/
