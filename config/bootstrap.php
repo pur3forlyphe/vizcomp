@@ -48,3 +48,11 @@
  * Inflector::rules('plural', array('rules' => array(), 'irregular' => array(), 'uninflected' => array()));
  *
  */
+Configure::write('Asset.dir',ROOT.DS.'assets');
+
+//Base URL config
+$baseUrl = '';
+if(empty($_SERVER["HTTPS"])){$baseUrl = 'http://';}elseif($_SERVER["HTTPS"] == "on"){$baseUrl = 'https://';}
+if(isset($_SERVER["SERVER_PORT"]) && !$_SERVER["SERVER_PORT"] == 80){$baseUrl .= ':'.$_SERVER["SERVER_PORT"];}
+if(isset($_SERVER['SERVER_NAME'])){$baseUrl .= $_SERVER['SERVER_NAME'];}
+Configure::write('baseUrl',$baseUrl);

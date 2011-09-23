@@ -19,8 +19,7 @@ class UsersController extends AppController {
                 ));
 					
                 if(!empty($user) && $this->Auth->login($user)){
-                        
-                    
+
                 } else {
                  
 				   $this->Session->setFlash($this->Auth->loginError, $this->Auth->flashElement, array(), 'auth');

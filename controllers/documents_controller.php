@@ -41,6 +41,7 @@ class DocumentsController extends AppController {
 				unset($this->data[$this->Document->alias]['file']);
 				//Set owner id to be that of the logged in person
 				$this->data['Document']['user_id'] = $this->Auth->user('id');
+				$this->data['Document']['client_id'] = $this->Auth->user('client_id');
 				if($this->Document->saveAll($this->data, array('validate' => 'first')))
 				{
 					$this->Session->setFlash(__('Document successfully uploaded', true));
@@ -50,9 +51,8 @@ class DocumentsController extends AppController {
 				}
 			}
 		}
-		$this->set('client', $this->Document->User->Client->find('list'));
-	}
-
+	} 
+	
 	function edit($id = null) {
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid document', true));
@@ -102,19 +102,6 @@ class DocumentsController extends AppController {
             'contain' => array()
           )
         );
-        if(!$document) //no main document found, try a version?
-        {
-         $modelAlias = $this->Document->DocumentVersion->alias;
-         $document = $this->Document->DocumentVersion->find(
-            'first',
-            array(
-              'conditions' => array(
-              $modelAlias.'.id' => $id
-            ),
-            'contain' => array()
-            )
-          );
-        }
         if($document)
         {
           $pathPieces = explode('/', $document[$modelAlias]['original']);

@@ -22,15 +22,15 @@
 </head>
 <body>
 <header>
-    <?php 
-        echo $this->Html->link(__('Home', true), '/pages/home');
-        if (!empty($user['User'])){
-            echo $this->Html->link(__(ucfirst($user['User']['username']), true), array ('controller' => 'users', 'action' => 'view'));
-            echo $this->Html->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout'));
-        } else if (empty ($user)) {
-            echo $this->Html->link(__('Login', true), array('controller' => 'users', 'action' => 'login'));
-        }
-      ?>
+	<?php
+		echo $this->Html->link(__('Home', true), '/pages/home');
+		if (!empty($currentUser['User'])){
+			echo $this->Html->link(__(ucfirst($currentUser['User']['username']), true), array ('controller' => 'users', 'action' => 'view'));
+			echo $this->Html->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout'));
+		} else if (empty ($currentUser)) {
+			echo $this->Html->link(__('Login', true), array('controller' => 'users', 'action' => 'login'));
+		}
+	  ?>
 </header>
 <h1>
 VizComp

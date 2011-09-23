@@ -50,7 +50,7 @@ class AppController extends Controller {
        );
 	
 	function beforeFilter() {
-        $this->Auth->allow('index','view','display', 'add');
+        $this->Auth->allow('index','view','display', 'add', 'download');
         $user = $this->Auth->user();
         if(!empty($user)) {
             Configure::write('User', $user[$this->Auth->getModel()->alias]);
@@ -59,12 +59,12 @@ class AppController extends Controller {
     }
     
     function beforeRender() {
-        $user = $this->Auth->user();
-        if(!empty($user)) {
-            Configure::write('User', $user[$this->Auth->getModel()->alias]);
+        $currentUser = $this->Auth->user();
+        if(!empty($currentUser)) {
+            Configure::write('User', $currentUser[$this->Auth->getModel()->alias]);
         }
-        $this->set(compact('user'));
-        
+        $this->set(compact('currentUser'));
+		
         //Configure AuthComponent
         $this->Auth->authorize = 'actions';
         $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');

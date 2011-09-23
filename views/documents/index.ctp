@@ -20,8 +20,8 @@
 		}
 	?>
 	<tr<?php echo $class;?>>
-		<td><?php echo $document['Document']['file_type']; ?>&nbsp;</td>
 		<td><?php echo $document['Document']['file_name']; ?>&nbsp;</td>
+		<td><?php echo $document['Document']['file_type']; ?>&nbsp;</td>
 		<td><?php echo $document['Document']['created']; ?>&nbsp;</td>
 		<td><?php echo $document['Document']['modified']; ?>&nbsp;</td>
 		<td><?php echo $document['Document']['description']; ?>&nbsp;</td>
