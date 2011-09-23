@@ -15,6 +15,27 @@ class DocumentsController extends AppController {
 		}
 		$this->set('document', $this->Document->read(null, $id));
 	}
+	
+	function play($id = null) {
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid document', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		
+		$document = $this->Document->read(null, $id);
+		$video = $document['Document'];
+
+		$pathPieces = explode('/', $video['original']);
+          $videoLink = array_pop($pathPieces);
+          $directory = array_pop($pathPieces);
+		
+		if ($video['file_type'] == 'video/mp4'){
+
+			$this->layout = 'video_player';
+			$this->set('video', $video);
+			
+		}
+	}
 
 	function add() {
 		if (!empty($this->data)) {
@@ -32,6 +53,25 @@ class DocumentsController extends AppController {
 				else
 				{
 					$ext = '';
+				}
+				if ($this->data[$this->Document->alias]['file']["type"] == 'video/mp4' ){
+					move_uploaded_file($file['tmp_name'], APP. DS . WEBROOT_DIR . DS . 'videos' . DS .$filename);
+					
+					$this->data[$this->Document->alias]['original'] = ('videos'. DS .$filename);
+					$this->data[$this->Document->alias]['extension'] = $ext;
+					$this->data[$this->Document->alias]['file_name'] = $file['name'];
+					$this->data[$this->Document->alias]['file_type'] = $this->data[$this->Document->alias]['file']["type"];
+					unset($this->data[$this->Document->alias]['file']);
+					//Set owner id to be that of the logged in person
+					$this->data['Document']['user_id'] = $this->Auth->user('id');
+					$this->data['Document']['client_id'] = $this->Auth->user('client_id');
+					if($this->Document->saveAll($this->data, array('validate' => 'first')))
+					{
+						$this->Session->setFlash(__('Document successfully uploaded', true));
+						$this->redirect(array('controller' => 'documents', 'action' => 'index'));
+					} else {
+						debug($this->Document->validationErrors);
+				}
 				}
 				move_uploaded_file($file['tmp_name'],strtolower(Configure::read('Asset.dir').DS.'documents'.DS.$filename));
 				$this->data[$this->Document->alias]['original'] = strtolower(DS.'documents'.DS.$filename);

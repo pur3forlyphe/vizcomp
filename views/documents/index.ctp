@@ -32,6 +32,11 @@
 			<?php echo $this->Html->link($document['User']['username'], array('controller' => 'users', 'action' => 'view', $document['User']['id'])); ?>
 		</td>
 		<td class="actions">
+			<?php 
+				if ($document['Document']['file_type'] == 'video/mp4') {
+					echo $this->Html->link(__('Play', true), array('action' => 'play', $document['Document']['id']));
+				}
+			 ?>
 			<?php echo $this->Html->link(__('Download', true), array('action' => 'download', $document['Document']['id'])); ?>
 			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $document['Document']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $document['Document']['id'])); ?>

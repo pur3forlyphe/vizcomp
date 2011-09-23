@@ -11,14 +11,17 @@
 
   echo $this->Html->css('cake.generic.css');
     
-  echo $this->Html->script('libs/jquery-1.5.1.min.js');
+  echo $this->Html->script('libs/jquery-1.6.2.min.js');
 
-  echo $this->Html->script('libs/modernizr-1.7.min.js');
+  echo $this->Html->script('libs/modernizr-2.0.6.min.js');
 
-  echo $this->Html->script('libs/dd_belatedpng.js');  
+  echo $this->Html->script('libs/dd_belatedpng.js');
+  
+  echo $this->Html->script('script.js');
 
   echo $scripts_for_layout;
- ?>
+  
+  ?>
 </head>
 <body>
 <header>

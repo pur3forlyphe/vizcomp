@@ -50,7 +50,7 @@ class AppController extends Controller {
        );
 	
 	function beforeFilter() {
-        $this->Auth->allow('index','view','display', 'add', 'download');
+        $this->Auth->allow('index','view','display', 'add', 'download', 'play');
         $user = $this->Auth->user();
         if(!empty($user)) {
             Configure::write('User', $user[$this->Auth->getModel()->alias]);
