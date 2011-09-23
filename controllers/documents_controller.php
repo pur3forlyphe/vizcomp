@@ -55,7 +55,8 @@ class DocumentsController extends AppController {
 					$ext = '';
 				}
 				if ($this->data[$this->Document->alias]['file']["type"] == 'video/mp4' ){
-					move_uploaded_file($file['tmp_name'], APP. DS . WEBROOT_DIR . DS . 'videos' . DS .$filename);
+					move_uploaded_file($file['tmp_name'], APP. DS . WEBROOT_DIR . DS . 'videos' . DS .$filename .'.mp4');
+					
 					
 					$this->data[$this->Document->alias]['original'] = ('videos'. DS .$filename);
 					$this->data[$this->Document->alias]['extension'] = $ext;
@@ -65,6 +66,7 @@ class DocumentsController extends AppController {
 					//Set owner id to be that of the logged in person
 					$this->data['Document']['user_id'] = $this->Auth->user('id');
 					$this->data['Document']['client_id'] = $this->Auth->user('client_id');
+					$this->Document->create();
 					if($this->Document->saveAll($this->data, array('validate' => 'first')))
 					{
 						$this->Session->setFlash(__('Document successfully uploaded', true));
